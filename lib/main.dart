@@ -4,6 +4,11 @@ import 'package:slider/wave_slider.dart';
 
 void main() =>
   runApp(MaterialApp(
+      theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            elevation: 0, // This removes the shadow from all App Bars.
+          )
+      ),
       home: WaveApp()
   ));
 
@@ -19,14 +24,14 @@ class _WaveAppState extends State<WaveApp> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.white12,
           leading: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(12.0),
               child: Image(image: AssetImage("assets/long-arrow-pointing-to-left.png"))),
-          backgroundColor: Colors.white,
         ),
         body: Container(
-          padding: EdgeInsets.all(32.0),
-          color: Colors.white,
+          //padding: EdgeInsets.all(32.0),
+          color: Colors.white12,
           child: Center(
             child: WaveSlider(),
             ),
