@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:slider/wave_slider.dart';
 
 void main() =>
@@ -18,14 +19,18 @@ class _WaveAppState extends State<WaveApp> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Wave Slider"),
+          leading: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Image(image: AssetImage("assets/long-arrow-pointing-to-left.png"))),
+          backgroundColor: Colors.white,
         ),
         body: Container(
           padding: EdgeInsets.all(32.0),
+          color: Colors.white,
           child: Center(
             child: WaveSlider(),
             ),
           ),
-      );
+    );
   }
 }
