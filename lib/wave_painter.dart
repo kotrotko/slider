@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -7,6 +9,8 @@ class WavePainter extends CustomPainter {
   final double? dragPercentage;
 
   final Color? color;
+
+  double _previousSliderPosition = 0;
 
   final Paint fillPainter;
   final Paint wavePainter;
@@ -25,10 +29,10 @@ class WavePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // _paintAnchors(canvas, size);
-    // _paintLine(canvas, size);
-    _paintBlock(canvas, size);
+    _paintAnchors(canvas, size);
     _paintWaveLine(canvas, size);
+    // _paintBlock(canvas, size);
+    // _paintLine(canvas, size);
   }
 
   _paintAnchors(Canvas canvas, Size size){
@@ -39,17 +43,45 @@ class WavePainter extends CustomPainter {
   WaveCurveDefinitions _calculateWaveLineDefinitions(){
     double bendWidth = 40.0;
     double bezierWidth = 40.0;
+
     double startOfBend = sliderPosition! - bendWidth / 2;
     double startOfBezier = startOfBend - bezierWidth;
     double endOfBend = sliderPosition! + bendWidth / 2;
     double endOfBezier = endOfBend + bezierWidth;
+
     double controlHeight = 0.0;
     double centerPoint = sliderPosition!;
+
     double leftControlPoint1 = startOfBend;
     double leftControlPoint2 = startOfBend;
-
     double rightControlPoint1 = endOfBend;
     double rightControlPoint2 = endOfBend;
+
+    double bendability = 25.0;
+    double maxSlideDifference = 20.0;
+
+    double slideDifference = (sliderPosition! - _previousSliderPosition).abs();
+    if (slideDifference > maxSlideDifference){
+      slideDifference = maxSlideDifference;
+    }
+
+    double? bend = lerpDouble(0.0, bendability, slideDifference / maxSlideDifference);
+
+    bool moveLeft = sliderPosition! < _previousSliderPosition;
+
+    if (moveLeft) {
+      leftControlPoint1 = leftControlPoint1 - bend!;
+      leftControlPoint2 = leftControlPoint2 + bend;
+      rightControlPoint1 = rightControlPoint1 + bend;
+      rightControlPoint2 = rightControlPoint2 - bend;
+      centerPoint = centerPoint + bend;
+    } else {
+      leftControlPoint1 = leftControlPoint1 + bend!;
+      leftControlPoint2 = leftControlPoint2 - bend;
+      rightControlPoint1 = rightControlPoint1 - bend;
+      rightControlPoint2 = rightControlPoint2 + bend;
+      centerPoint = centerPoint - bend;
+    }
 
     WaveCurveDefinitions waveCurve = WaveCurveDefinitions(
       centerPoint: centerPoint,
@@ -72,8 +104,12 @@ class WavePainter extends CustomPainter {
     Path path = Path();
     path.moveTo(0.0, size.height);
     path.lineTo(waveCurve.startOfBezier, size.height);
-    path.cubicTo(waveCurve.leftControlPoint1, size.height, waveCurve.leftControlPoint2, waveCurve.controlHeight, waveCurve.centerPoint, waveCurve.controlHeight);
-    path.cubicTo(waveCurve.rightControlPoint1, waveCurve.controlHeight, waveCurve.rightControlPoint2, size.height, waveCurve.endOfBezier, size.height);
+    path.cubicTo(
+        waveCurve.leftControlPoint1, size.height, waveCurve.leftControlPoint2, waveCurve.controlHeight,
+        waveCurve.centerPoint, waveCurve.controlHeight);
+    path.cubicTo(
+        waveCurve.rightControlPoint1, waveCurve.controlHeight, waveCurve.rightControlPoint2, size.height,
+        waveCurve.endOfBezier, size.height);
     path.lineTo(size.width, size.height);
     canvas.drawPath(path, wavePainter);
   }
@@ -91,7 +127,8 @@ class WavePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
+  bool shouldRepaint(WavePainter oldDelegate) {
+    _previousSliderPosition = oldDelegate.sliderPosition!;
     return true;
   }
 }
