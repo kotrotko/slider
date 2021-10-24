@@ -7,7 +7,7 @@ class WaveSlider extends StatefulWidget {
   final Color color;
 
   const WaveSlider({
-    this.width = 350.0,
+    this.width = 400.0,
     this.height = 50.0,
     this.color = Colors.black,
     });

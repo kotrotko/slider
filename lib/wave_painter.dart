@@ -28,16 +28,16 @@ class WavePainter extends CustomPainter {
     @required this.sliderState,
 
   }): fillPainter = Paint()
-    ..color = color!
+    ..color = Colors.black
     ..style = PaintingStyle.fill,
       wavePainter = Paint()
-        ..color = color
+        ..color = color!
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.5;
 
   @override
   void paint(Canvas canvas, Size size) {
-    _paintAnchors(canvas, size);
+    //_paintAnchors(canvas, size);
 
     // _paintSlidingWave(canvas, size);
     print('state $sliderState');
@@ -58,7 +58,7 @@ class WavePainter extends CustomPainter {
         _paintRestingWave(canvas, size);
         break;
     }
-    // _paintBlock(canvas, size);
+    _paintBlock(canvas, size);
     // _paintLine(canvas, size);
   }
 
@@ -90,8 +90,8 @@ class WavePainter extends CustomPainter {
   }
 
   _paintAnchors(Canvas canvas, Size size){
-    canvas.drawCircle(Offset(0.0, size.height), 5.0, fillPainter);
-    canvas.drawCircle(Offset(size.width, size.height), 5.0, fillPainter);
+    canvas.drawCircle(Offset(100.0, size.height), 5.0, fillPainter);
+  //   canvas.drawCircle(Offset(size.width, size.height), 0.0, fillPainter);
   }
 
   WaveCurveDefinitions _calculateWaveLineDefinitions(Size size){
@@ -178,8 +178,9 @@ class WavePainter extends CustomPainter {
   }
 
   _paintBlock(Canvas canvas, Size size){
-    Rect sliderRect = Offset(sliderPosition!, size.height - 5.0) & Size(3.0, 10.0);
-    canvas.drawRect(sliderRect, fillPainter);
+    canvas.drawCircle(Offset(sliderPosition!, size.height + 15.0), 8.0, fillPainter);
+    Text("42");
+    //canvas.drawCircle(Offset(sliderPosition!, size.height - 2.0), 10.0, fillPainter);
   }
 
   @override
