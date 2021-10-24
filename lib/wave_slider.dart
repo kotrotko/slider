@@ -4,12 +4,14 @@ import 'package:slider/wave_painter.dart';
 class WaveSlider extends StatefulWidget {
   final double width;
   final double height;
+  final int divisions;
   final Color color;
 
   const WaveSlider({
-    this.width = 400.0,
+    this.width = 450.0,
     this.height = 50.0,
-    this.color = Colors.black,
+    this.divisions = 5,
+    this.color = Colors.grey,
     });
 
   @override
@@ -42,7 +44,7 @@ class _WaveSliderState extends State<WaveSlider> with TickerProviderStateMixin {
     if (val.dx <= 0) {
       _newDragPosition = 0;
     } else if (val.dx >= widget.width) {
-      _newDragPosition = widget.width;
+       _newDragPosition = widget.width;
     } else {
       _newDragPosition = val.dx;
     }

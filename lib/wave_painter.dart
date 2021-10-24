@@ -58,6 +58,7 @@ class WavePainter extends CustomPainter {
         _paintRestingWave(canvas, size);
         break;
     }
+
     _paintBlock(canvas, size);
     // _paintLine(canvas, size);
   }
@@ -95,13 +96,14 @@ class WavePainter extends CustomPainter {
   }
 
   WaveCurveDefinitions _calculateWaveLineDefinitions(Size size){
-    // double minWaveHeight = size.height * 0.2;
+    double minWaveHeight = size.height * 0.3;
     // double maxWaveHeight = size.height * 0.8;
     //
     // double controlHeight = (size.height - minWaveHeight) - (maxWaveHeight * dragPercentage);
+    double controlHeight = size.height - minWaveHeight;
 
-    double bendWidth = 40.0;
-    double bezierWidth = 40.0;
+    double bendWidth = 30.0;
+    double bezierWidth = 30.0;
     //double bendWidth = 20.0 + 20.0 * dragPercentage;
     //double bezierWidth = 20.0 + 20.0 * dragPercentage;
 
@@ -118,7 +120,7 @@ class WavePainter extends CustomPainter {
     endOfBend = (endOfBend >= size.width) ? size.width : endOfBend;
     endOfBezier = (endOfBezier >= size.width) ? size.width : endOfBezier;
 
-    double controlHeight = 0.0;
+    //double controlHeight = 0.0;
 
     double leftControlPoint1 = startOfBend;
     double leftControlPoint2 = startOfBend;
@@ -178,8 +180,49 @@ class WavePainter extends CustomPainter {
   }
 
   _paintBlock(Canvas canvas, Size size){
+
+    final borderPaint = Paint()
+      ..color = Colors.green
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke;
+
+    final textStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+    );
+
+    final textSpan = TextSpan(
+      text: (40 + (sliderPosition! * 0.2)).toInt().toString() + ' kg',
+      style: textStyle,
+    );
+
+    final textPainter = TextPainter(
+      text: textSpan,
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
+    );
+
+    textPainter.layout(
+      minWidth: 0,
+      maxWidth: 50,
+    );
+
+    //creating the tooltip position
+    Offset toolTipOffset = Offset((sliderPosition! - 15.0), size.height - 85.0);
+
+    //creating the text position
+    Offset textOffset = Offset(toolTipOffset.dx, toolTipOffset.dy);
+
+    //canvas.drawRRect(Offset(sliderPosition!, size.height - 100.0) & const Size(80.0, 50.0), Paint());
+    canvas.drawRRect(RRect.fromRectAndCorners(Offset(sliderPosition! - 40.0, size.height - 100.0) & const Size(80.0, 50.0),
+        topRight: Radius.circular(8), topLeft: Radius.circular(8), bottomRight: Radius.circular(8), bottomLeft: Radius.circular(8)), Paint());
+
     canvas.drawCircle(Offset(sliderPosition!, size.height + 15.0), 8.0, fillPainter);
-    Text("42");
+
+    //painting the text
+    textPainter.paint(canvas, textOffset);
+
     //canvas.drawCircle(Offset(sliderPosition!, size.height - 2.0), 10.0, fillPainter);
   }
 
