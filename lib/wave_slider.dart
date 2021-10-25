@@ -4,15 +4,16 @@ import 'package:slider/wave_painter.dart';
 class WaveSlider extends StatefulWidget {
   final double width;
   final double height;
-  final int divisions;
   final Color color;
+
+  final ValueChanged<double> onChanged;
 
   const WaveSlider({
     this.width = 450.0,
     this.height = 50.0,
-    this.divisions = 5,
     this.color = Colors.grey,
-    });
+    required this.onChanged,
+    }): assert(height >= 50 && height <= 600);
 
   @override
   _WaveSliderState createState() => _WaveSliderState();
@@ -54,11 +55,17 @@ class _WaveSliderState extends State<WaveSlider> with TickerProviderStateMixin {
     });
   }
 
+  _handleChangeStart(double val){
+    assert(widget.onChanged != null);
+    widget.onChanged(val);
+  }
+
   void _onDragUpdate(BuildContext context, DragUpdateDetails update) {
     RenderBox box = context.findRenderObject() as RenderBox;
     Offset offset = box.globalToLocal(update.globalPosition);
     _slideController.setStateToSliding();
     _updateDragPosition(offset);
+    _handleChangeStart(_dragPercentage);
   }
 
   void _onDragEnd(BuildContext context, DragEndDetails end) {

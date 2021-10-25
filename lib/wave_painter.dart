@@ -200,8 +200,7 @@ class WavePainter extends CustomPainter {
     final textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
-      //textAlign: TextAlign.center,
-      textAlign: TextAlign.start,
+      textAlign: TextAlign.center,
     );
 
     textPainter.layout(
@@ -224,7 +223,7 @@ class WavePainter extends CustomPainter {
     textPainter.paint(canvas, textOffset);
   }
 
-  @override
+    @override
   bool shouldRepaint(WavePainter oldDelegate) {
     _previousSliderPosition = oldDelegate.sliderPosition!;
     return true;
@@ -257,3 +256,11 @@ class WaveCurveDefinitions {
     required this.centerPoint,
   });
 }
+
+
+// ? Text("UNDERWEIGGHT")
+// : Text("NO")
+      // style: TextStyle(
+      //   fontSize: 14,
+      //   color: Colors.grey,
+      // )

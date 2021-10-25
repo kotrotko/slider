@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:slider/wave_slider.dart';
 
+
 void main() =>
   runApp(MaterialApp(
       theme: ThemeData(
@@ -20,7 +21,11 @@ class WaveApp extends StatefulWidget {
 }
 
 class _WaveAppState extends State<WaveApp> {
-  int _personWeigt = 40;
+  int _personWeigt = 0;
+  TextStyle weightBalanceStyle = TextStyle(
+    fontSize: 22,
+    color: Colors.grey,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -52,18 +57,25 @@ class _WaveAppState extends State<WaveApp> {
                         )
                       ),
                       SizedBox(height: 50.0),
-                      Text("underweight or overweight",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        )
-                      ),
+                      Column(
+                        //child: Text(_personWeigt.toString(),
+                        children: <Widget>[
+                          if (_personWeigt < 23)
+                            Text("Underweight", style: weightBalanceStyle)
+                          else if (_personWeigt > 66)
+                            Text("Overweight", style: weightBalanceStyle)
+                          else
+                            Text("Balanced", style: weightBalanceStyle),
+                      ]),
                       SizedBox(height: 50.0),
-                      Text(_personWeigt.toString()),
                   ]
                 )),
                 SizedBox(height: 50.0),
-                WaveSlider(),
+                WaveSlider(onChanged: (double val){
+                  setState(() {
+                    _personWeigt = (val * 100).round();
+                  });
+                },),
                 SizedBox(height: 50.0),
                 ElevatedButton(
                   child: Text('Continue'),
