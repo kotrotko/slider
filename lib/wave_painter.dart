@@ -188,42 +188,40 @@ class WavePainter extends CustomPainter {
 
     final textStyle = TextStyle(
       color: Colors.white,
-      fontSize: 15,
+      fontSize: sliderPosition!*0.015 + 15,
       fontWeight: FontWeight.bold,
     );
 
     final textSpan = TextSpan(
-      text: (40 + (sliderPosition! * 0.2)).toInt().toString() + ' kg',
+      text: (40 + (sliderPosition! * 0.2)).toInt().toString() + " kg",
       style: textStyle,
     );
 
     final textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
-      textAlign: TextAlign.center,
+      //textAlign: TextAlign.center,
+      textAlign: TextAlign.start,
     );
 
     textPainter.layout(
       minWidth: 0,
-      maxWidth: 50,
+      maxWidth: 75,
     );
 
     //creating the tooltip position
-    Offset toolTipOffset = Offset((sliderPosition! - 15.0), size.height - 85.0);
+    Offset toolTipOffset = Offset(((sliderPosition! - 10.0) - sliderPosition!*0.03), size.height - 80.0);
 
     //creating the text position
     Offset textOffset = Offset(toolTipOffset.dx, toolTipOffset.dy);
 
-    //canvas.drawRRect(Offset(sliderPosition!, size.height - 100.0) & const Size(80.0, 50.0), Paint());
-    canvas.drawRRect(RRect.fromRectAndCorners(Offset(sliderPosition! - 40.0, size.height - 100.0) & const Size(80.0, 50.0),
-        topRight: Radius.circular(8), topLeft: Radius.circular(8), bottomRight: Radius.circular(8), bottomLeft: Radius.circular(8)), Paint());
+     canvas.drawRRect(RRect.fromRectAndCorners(Offset((sliderPosition! - 40.0), size.height - 100.0) & Size((sliderPosition!*0.1 + 80.0), (sliderPosition!*0.05 + 50.0)),
+       topRight: Radius.circular(8), topLeft: Radius.circular(8), bottomRight: Radius.circular(8), bottomLeft: Radius.circular(8)), Paint());
 
     canvas.drawCircle(Offset(sliderPosition!, size.height + 15.0), 8.0, fillPainter);
 
     //painting the text
     textPainter.paint(canvas, textOffset);
-
-    //canvas.drawCircle(Offset(sliderPosition!, size.height - 2.0), 10.0, fillPainter);
   }
 
   @override

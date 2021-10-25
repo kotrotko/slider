@@ -60,7 +60,6 @@ class _WaveAppState extends State<WaveApp> {
                       ),
                       SizedBox(height: 50.0),
                       Text(_personWeigt.toString()),
-                      Text('Kilos'),
                   ]
                 )),
                 SizedBox(height: 50.0),
