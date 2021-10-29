@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:slider/wave_slider.dart';
+import 'package:slider/success_page.dart';
 
 
 void main() =>
@@ -10,7 +11,8 @@ void main() =>
             elevation: 0, // This removes the shadow from all App Bars.
           )
       ),
-      home: WaveApp()
+      home: WaveApp(),
+
   ));
 
 
@@ -27,8 +29,24 @@ class _WaveAppState extends State<WaveApp> {
     color: Colors.grey,
   );
 
+  void state() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> screens = [
+      //HomePage(state),
+      SuccessPage(),
+    ];
+
+    void toSuccessPage() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SuccessPage()),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white12,
@@ -79,7 +97,7 @@ class _WaveAppState extends State<WaveApp> {
                 SizedBox(height: 50.0),
                 ElevatedButton(
                   child: Text('Continue'),
-                  onPressed: () {  },
+                  onPressed: toSuccessPage,
                 ),
               ],
             ),
