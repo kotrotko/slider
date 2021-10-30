@@ -52,7 +52,11 @@ class _WaveAppState extends State<WaveApp> {
           backgroundColor: Colors.white12,
           leading: Padding(
               padding: EdgeInsets.all(12.0),
-              child: Image(image: AssetImage("assets/long-arrow-pointing-to-left.png"))),
+              child: ElevatedButton(
+                child: Image(image: AssetImage("assets/long-arrow-pointing-to-left.png")),
+                onPressed: (){},
+              ),
+          ),
         ),
         body: Container(
           //padding: EdgeInsets.all(32.0),
