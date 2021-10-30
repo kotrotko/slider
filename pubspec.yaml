@@ -33,6 +33,7 @@ flutter:
 
   assets:
     - assets/long-arrow-pointing-to-left.png
+    - assets/long-arrow-pointing-to-right.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

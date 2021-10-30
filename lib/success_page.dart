@@ -7,7 +7,7 @@ class SuccessPage extends StatelessWidget {
   Widget build(BuildContext context){
     return Scaffold(
       body: Center(
-        child: Text('SUCCESS'),
+        child: Text("You're all set", style: TextStyle(fontSize: 20.0),),
       )
     );
   }

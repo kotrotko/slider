@@ -23,7 +23,7 @@ class WaveApp extends StatefulWidget {
 }
 
 class _WaveAppState extends State<WaveApp> {
-  int _personWeigt = 0;
+  int _personWeight = 0;
   TextStyle weightBalanceStyle = TextStyle(
     fontSize: 22,
     color: Colors.grey,
@@ -76,11 +76,11 @@ class _WaveAppState extends State<WaveApp> {
                       ),
                       SizedBox(height: 50.0),
                       Column(
-                        //child: Text(_personWeigt.toString(),
+                        //child: Text(_personWeight.toString(),
                         children: <Widget>[
-                          if (_personWeigt < 23)
+                          if (_personWeight < 23)
                             Text("Underweight", style: weightBalanceStyle)
-                          else if (_personWeigt > 66)
+                          else if (_personWeight > 66)
                             Text("Overweight", style: weightBalanceStyle)
                           else
                             Text("Balanced", style: weightBalanceStyle),
@@ -91,18 +91,32 @@ class _WaveAppState extends State<WaveApp> {
                 SizedBox(height: 50.0),
                 WaveSlider(onChanged: (double val){
                   setState(() {
-                    _personWeigt = (val * 100).round();
+                    _personWeight = (val * 100).round();
                   });
                 },),
                 SizedBox(height: 50.0),
                 ElevatedButton(
-                  child: Text('Continue'),
+                    child: Container(
+                      height: 50.0,
+                      width: 100.0,
+                      child: Row(
+                          children: <Widget>[
+                            Text('Continue', style: TextStyle(color: Colors.black, fontSize: 16.0)),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 6.0),
+                              child: Icon(Icons.arrow_right_alt, color: Colors.black),
+                            ),
+                          ]),
+                    ),
                   onPressed: toSuccessPage,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.grey),
+                  ),
                 ),
               ],
             ),
-            ),
           ),
+        ),
     );
   }
 }
