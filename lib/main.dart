@@ -51,11 +51,11 @@ class _WaveAppState extends State<WaveApp> {
         appBar: AppBar(
           backgroundColor: Colors.white12,
           leading: Padding(
-              padding: EdgeInsets.all(12.0),
-              child: ElevatedButton(
-                child: Image(image: AssetImage("assets/long-arrow-pointing-to-left.png")),
-                onPressed: (){},
-              ),
+              padding: EdgeInsets.only(left: 30.0),
+              //child: ElevatedButton(
+              child: Image(image: AssetImage("assets/icons8-left-arrow-48.png")),
+               //onPressed: (){},
+              //),
           ),
         ),
         body: Container(
@@ -108,7 +108,7 @@ class _WaveAppState extends State<WaveApp> {
                             Text('Continue', style: TextStyle(color: Colors.black, fontSize: 16.0)),
                             Padding(
                               padding: const EdgeInsets.only(left: 6.0),
-                              child: Icon(Icons.arrow_right_alt, color: Colors.black),
+                              child: Image(image: AssetImage("assets/icons8-right-arrow-24.png")),
                             ),
                           ]),
                     ),
