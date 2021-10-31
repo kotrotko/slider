@@ -9,7 +9,7 @@ class WaveSlider extends StatefulWidget {
   final ValueChanged<double> onChanged;
 
   const WaveSlider({
-    this.width = 450.0,
+    this.width = 390.0,
     this.height = 50.0,
     this.color = Colors.grey,
     required this.onChanged,
@@ -23,6 +23,8 @@ class _WaveSliderState extends State<WaveSlider> with TickerProviderStateMixin {
 
   double _dragPosition = 0.0;
   double _dragPercentage = 0.0;
+
+  double animationProgress = 0.0;
 
   late WaveSliderController _slideController;
 
@@ -80,19 +82,32 @@ class _WaveSliderState extends State<WaveSlider> with TickerProviderStateMixin {
     _updateDragPosition(localOffset);
   }
 
+  double _sliderEdges(_dragPosition){
+    if (_dragPosition < 20.0){
+      _dragPosition = 20.0;
+    }else if(_dragPosition > 370.0){
+      _dragPosition = 370.0;
+    }else{
+      _dragPosition = _dragPosition;
+    }
+    return _dragPosition;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         child: Container(
           width: widget.width,
           height: widget.height,
+          color: Colors.red,
+          //color: widget.color,
           child: CustomPaint(
             painter: WavePainter(
               animationProgress: _slideController.progress,
               sliderState: _slideController.state,
               color: widget.color,
               dragPercentage: _dragPercentage,
-              sliderPosition: _dragPosition,
+              sliderPosition: _sliderEdges(_dragPosition),
             ),
           ),
         ),

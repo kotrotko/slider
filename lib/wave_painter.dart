@@ -39,7 +39,7 @@ class WavePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     //_paintAnchors(canvas, size);
 
-    // _paintSlidingWave(canvas, size);
+    //_paintSlidingWave(canvas, size);
     print('state $sliderState');
     switch(sliderState){
       case (SliderState.starting):
@@ -60,7 +60,7 @@ class WavePainter extends CustomPainter {
     }
 
     _paintBlock(canvas, size);
-    // _paintLine(canvas, size);
+    //_paintLine(canvas, size);
   }
 
   _paintStartupWave(Canvas canvas, Size size) {
@@ -90,10 +90,9 @@ class WavePainter extends CustomPainter {
     _paintWaveLine(canvas, size, line);
   }
 
-  _paintAnchors(Canvas canvas, Size size){
-    canvas.drawCircle(Offset(100.0, size.height), 5.0, fillPainter);
-  //   canvas.drawCircle(Offset(size.width, size.height), 0.0, fillPainter);
-  }
+  // _paintAnchors(Canvas canvas, Size size){
+  //   canvas.drawCircle(Offset(100.0, size.height), 5.0, fillPainter);
+  // }
 
   WaveCurveDefinitions _calculateWaveLineDefinitions(Size size){
     double minWaveHeight = size.height * 0.3;
