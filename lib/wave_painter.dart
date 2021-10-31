@@ -73,8 +73,8 @@ class WavePainter extends CustomPainter {
 
   _paintRestingWave(Canvas canvas, Size size) {
     Path path = Path();
-    path.moveTo(0.0, size.height);
-    path.lineTo(size.width, size.height);
+    path.moveTo(0.0, size.height - 25);
+    path.lineTo(size.width, size.height - 25);
     canvas.drawPath(path, wavePainter);
   }
 
@@ -91,20 +91,20 @@ class WavePainter extends CustomPainter {
   }
 
   // _paintAnchors(Canvas canvas, Size size){
-  //   canvas.drawCircle(Offset(100.0, size.height), 5.0, fillPainter);
+  //   canvas.drawCircle(Offset(100.0, size.height - 10), 5.0, fillPainter);
   // }
 
   WaveCurveDefinitions _calculateWaveLineDefinitions(Size size){
-    double minWaveHeight = size.height * 0.3;
-    // double maxWaveHeight = size.height * 0.8;
+    double minWaveHeight = size.height * 0.5;
+    double maxWaveHeight = size.height * 0.8;
     //
-    // double controlHeight = (size.height - minWaveHeight) - (maxWaveHeight * dragPercentage);
-    double controlHeight = size.height - minWaveHeight;
+    double controlHeight = (size.height - minWaveHeight) - (maxWaveHeight * dragPercentage!);
+    //double controlHeight = size.height - minWaveHeight;
 
     double bendWidth = 30.0;
     double bezierWidth = 30.0;
-    //double bendWidth = 20.0 + 20.0 * dragPercentage;
-    //double bezierWidth = 20.0 + 20.0 * dragPercentage;
+    //double bendWidth = 20.0 + 20.0 * dragPercentage!;
+    //double bezierWidth = 20.0 + 20.0 * dragPercentage!;
 
     double centerPoint = sliderPosition!;
     centerPoint = (centerPoint > size.width) ? size.width : centerPoint;
@@ -166,15 +166,15 @@ class WavePainter extends CustomPainter {
     // WaveCurveDefinitions waveCurve = _calculateWaveLineDefinitions(size);
 
     Path path = Path();
-    path.moveTo(0.0, size.height);
-    path.lineTo(waveCurve.startOfBezier, size.height);
+    path.moveTo(0.0, size.height - 25);
+    path.lineTo(waveCurve.startOfBezier, size.height - 25);
     path.cubicTo(
-        waveCurve.leftControlPoint1, size.height, waveCurve.leftControlPoint2, waveCurve.controlHeight,
+        waveCurve.leftControlPoint1, size.height - 25 , waveCurve.leftControlPoint2, waveCurve.controlHeight,
         waveCurve.centerPoint, waveCurve.controlHeight);
     path.cubicTo(
-        waveCurve.rightControlPoint1, waveCurve.controlHeight, waveCurve.rightControlPoint2, size.height,
-        waveCurve.endOfBezier, size.height);
-    path.lineTo(size.width, size.height);
+        waveCurve.rightControlPoint1, waveCurve.controlHeight, waveCurve.rightControlPoint2, size.height - 25,
+        waveCurve.endOfBezier, size.height - 25);
+    path.lineTo(size.width, size.height - 25);
     canvas.drawPath(path, wavePainter);
   }
 
@@ -208,15 +208,15 @@ class WavePainter extends CustomPainter {
     );
 
     //creating the tooltip position
-    Offset toolTipOffset = Offset(((sliderPosition! - 10.0) - sliderPosition!*0.03), size.height - 80.0);
+    Offset toolTipOffset = Offset(((sliderPosition! - 10.0) - sliderPosition!*0.03), size.height - 120.0); //TODO here is size.height
 
     //creating the text position
     Offset textOffset = Offset(toolTipOffset.dx, toolTipOffset.dy);
 
-     canvas.drawRRect(RRect.fromRectAndCorners(Offset((sliderPosition! - 40.0), size.height - 100.0) & Size((sliderPosition!*0.1 + 80.0), (sliderPosition!*0.05 + 50.0)),
+     canvas.drawRRect(RRect.fromRectAndCorners(Offset((sliderPosition! - 40.0), size.height - 140.0) & Size((sliderPosition!*0.09 + 80.0), (sliderPosition!*0.05 + 50.0)),
        topRight: Radius.circular(8), topLeft: Radius.circular(8), bottomRight: Radius.circular(8), bottomLeft: Radius.circular(8)), Paint());
 
-    canvas.drawCircle(Offset(sliderPosition!, size.height + 15.0), 8.0, fillPainter);
+    canvas.drawCircle(Offset(sliderPosition!, size.height - 10.0), 8.0, fillPainter);
 
     //painting the text
     textPainter.paint(canvas, textOffset);
@@ -255,11 +255,3 @@ class WaveCurveDefinitions {
     required this.centerPoint,
   });
 }
-
-
-// ? Text("UNDERWEIGGHT")
-// : Text("NO")
-      // style: TextStyle(
-      //   fontSize: 14,
-      //   color: Colors.grey,
-      // )

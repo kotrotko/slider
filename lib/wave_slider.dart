@@ -83,10 +83,10 @@ class _WaveSliderState extends State<WaveSlider> with TickerProviderStateMixin {
   }
 
   double _sliderEdges(_dragPosition){
-    if (_dragPosition < 20.0){
-      _dragPosition = 20.0;
-    }else if(_dragPosition > 370.0){
-      _dragPosition = 370.0;
+    if (_dragPosition < 45.0){
+      _dragPosition = 45.0;
+    }else if(_dragPosition > 320.0){
+      _dragPosition = 320.0;
     }else{
       _dragPosition = _dragPosition;
     }
@@ -99,7 +99,6 @@ class _WaveSliderState extends State<WaveSlider> with TickerProviderStateMixin {
         child: Container(
           width: widget.width,
           height: widget.height,
-          color: Colors.red,
           //color: widget.color,
           child: CustomPaint(
             painter: WavePainter(
