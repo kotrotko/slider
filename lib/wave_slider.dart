@@ -5,6 +5,7 @@ class WaveSlider extends StatefulWidget {
   final double width;
   final double height;
   final Color color;
+  final VoidCallback tap;
 
   final ValueChanged<double> onChanged;
 
@@ -12,6 +13,7 @@ class WaveSlider extends StatefulWidget {
     this.width = 390.0,
     this.height = 50.0,
     this.color = Colors.grey,
+    required this.tap,
     required this.onChanged,
     }): assert(height >= 50 && height <= 600);
 
@@ -93,23 +95,34 @@ class _WaveSliderState extends State<WaveSlider> with TickerProviderStateMixin {
     return _dragPosition;
   }
 
+  bool _pressed = false;
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         child: Container(
-          width: widget.width,
-          height: widget.height,
-          //color: widget.color,
-          child: CustomPaint(
-            painter: WavePainter(
-              animationProgress: _slideController.progress,
-              sliderState: _slideController.state,
-              color: widget.color,
-              dragPercentage: _dragPercentage,
-              sliderPosition: _sliderEdges(_dragPosition),
+              width: widget.width,
+              height: widget.height,
+              color: Colors.white12,
+              //color: _pressed ? widget.color : Colors.red,
+              // child: new InkWell(
+              //   onTap: () {
+              //     widget.tap();
+              //     this.setState((){
+              //       _pressed = true;
+              // });
+              // },),),
+              child: CustomPaint(
+                painter: WavePainter(
+                  animationProgress: _slideController.progress,
+                  sliderState: _slideController.state,
+                  color: widget.color,
+                  dragPercentage: _dragPercentage,
+                  sliderPosition: _sliderEdges(_dragPosition),
+                ),
+              ),
             ),
-          ),
-        ),
         onHorizontalDragUpdate: (DragUpdateDetails update) => _onDragUpdate(context, update),
         onHorizontalDragStart: (DragStartDetails start) => _onDragStart(context, start),
         onHorizontalDragEnd: (DragEndDetails end) => _onDragEnd(context, end),

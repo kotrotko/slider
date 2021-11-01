@@ -59,11 +59,9 @@ class _WaveAppState extends State<WaveApp> {
           ),
         ),
         body: Container(
-          //padding: EdgeInsets.all(32.0),
           color: Colors.white12,
           child: Center(
             child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: EdgeInsets.all(30.0),
@@ -97,7 +95,7 @@ class _WaveAppState extends State<WaveApp> {
                   setState(() {
                     _personWeight = (val * 100).round();
                   });
-                },),
+                }, tap: () {  },),
                 SizedBox(height: 50.0),
                 ElevatedButton(
                     child: Container(

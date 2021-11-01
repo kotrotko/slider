@@ -17,6 +17,7 @@ class WavePainter extends CustomPainter {
 
   double _previousSliderPosition = 0;
 
+  final Paint fillPainterShadow;
   final Paint fillPainter;
   final Paint wavePainter;
 
@@ -33,7 +34,10 @@ class WavePainter extends CustomPainter {
       wavePainter = Paint()
         ..color = color!
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.5;
+        ..strokeWidth = 2.5,
+      fillPainterShadow = Paint()
+        ..color = Colors.grey
+        ..style = PaintingStyle.fill;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -93,6 +97,10 @@ class WavePainter extends CustomPainter {
   // _paintAnchors(Canvas canvas, Size size){
   //   canvas.drawCircle(Offset(100.0, size.height - 10), 5.0, fillPainter);
   // }
+
+  _paintShadow(Canvas canvas, Size size){
+    canvas.drawCircle(Offset(100.0, size.height - 30), 8.0, fillPainterShadow);
+  }
 
   WaveCurveDefinitions _calculateWaveLineDefinitions(Size size){
     double minWaveHeight = size.height * 0.5;
@@ -218,7 +226,9 @@ class WavePainter extends CustomPainter {
 
     canvas.drawCircle(Offset(sliderPosition!, size.height - 10.0), 8.0, fillPainter);
 
-    //painting the text
+    canvas.drawCircle(Offset(sliderPosition!, size.height + 10.0), 10.0, fillPainterShadow);
+
+   //painting the text
     textPainter.paint(canvas, textOffset);
   }
 
