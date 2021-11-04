@@ -91,12 +91,27 @@ class _WaveAppState extends State<WaveApp> {
                   ]
                 )),
                 SizedBox(height: 50.0),
-                WaveSlider(onChanged: (double val){
-                  setState(() {
-                    _personWeight = (val * 100).round();
-                  });
-                }, tap: () {  },),
-                SizedBox(height: 50.0),
+                Column(
+                  children: [
+                    WaveSlider(onChanged: (double val){
+                      setState(() {
+                        _personWeight = (val * 100).round();
+                      });
+                    }, tap: () {  },),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("40"),
+                          Text("120"),
+                  ],
+                ),
+                    ),
+                ]),
+                SizedBox(
+                  height: 50.0,
+                ),
                 ElevatedButton(
                     child: Container(
                       height: 50.0,

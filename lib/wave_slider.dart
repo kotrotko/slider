@@ -87,8 +87,8 @@ class _WaveSliderState extends State<WaveSlider> with TickerProviderStateMixin {
   double _sliderEdges(_dragPosition){
     if (_dragPosition < 45.0){
       _dragPosition = 45.0;
-    }else if(_dragPosition > 320.0){
-      _dragPosition = 320.0;
+    }else if(_dragPosition > 340.0){
+      _dragPosition = 340.0;
     }else{
       _dragPosition = _dragPosition;
     }
