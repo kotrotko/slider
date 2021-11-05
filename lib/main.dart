@@ -103,8 +103,8 @@ class _WaveAppState extends State<WaveApp> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("40"),
-                          Text("120"),
+                          Text("40", style: weightBalanceStyle),
+                          Text("120", style: weightBalanceStyle),
                   ],
                 ),
                     ),
